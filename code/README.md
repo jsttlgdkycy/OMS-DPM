@@ -56,10 +56,10 @@ This repository is heavily based on https://github.com/LuChengTHU/dpm-solver/tre
 
 If you find the code useful for your research, please consider citing
 ```bib
-@article{lu2022dpm,
-  title={DPM-Solver: A Fast ODE Solver for Diffusion Probabilistic Model Sampling in Around 10 Steps},
-  author={Lu, Cheng and Zhou, Yuhao and Bao, Fan and Chen, Jianfei and Li, Chongxuan and Zhu, Jun},
-  journal={arXiv preprint arXiv:2206.00927},
-  year={2022}
+@article{liu2023oms,
+  title={OMS-DPM: Optimizing the Model Schedule for Diffusion Probabilistic Models},
+  author={Liu, Enshu and Ning, Xuefei and Lin, Zinan and Yang, Huazhong and Wang, Yu},
+  journal={arXiv preprint arXiv:2306.08860},
+  year={2023}
 }
 ```
