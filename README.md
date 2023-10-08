@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # OMS-DPM: Optimizing the Model Schedule for Diffusion Probabilistic Models
 
 The official code for the paper [OMS-DPM: Optimizing the Model Schedule for Diffusion Probabilistic Models](https://arxiv.org/abs/2306.08860) (**ICML 2023**) by Enshu Liu*, Xuefei Ning*, Zinan Lin*, Huazhong Yang, and Yu Wang. OMS-DPM provides a method of using multi-model sampling in the timestep dimension, as well as a search algorithm for optimizing the model schedule.
@@ -63,3 +64,7 @@ If you find the code useful for your research, please consider citing
   year={2023}
 }
 ```
+=======
+# OMS-DPM-private
+test
+>>>>>>> 3e8ef8d5baa8b27e27245145c659e410427066c1
