@@ -1,0 +1,82 @@
+data:
+    dataset: "CHURCH"
+    image_size: 256
+    channels: 3
+    logit_transform: false
+    uniform_dequantization: false
+    gaussian_dequantization: false
+    random_flip: true
+    rescaled: true
+    num_workers: 4
+    num_classes: 1000
+
+model:
+    type: "simple"
+    model_type: "Diffusion"
+    in_channels: 3
+    out_ch: 3
+    ch: 128
+    temb_ch: 512
+    ch_mult: [1, 1, 2, 2, 4, 4]
+    num_res_blocks: 2
+    attn_resolutions: [16, ]
+    attn_num: {16: 1}
+    use_scale_shift: False
+    dropout: 0.0
+    var_type: fixedsmall
+    ema_rate: 0.999
+    ema: True
+    resamp_with_conv: True
+    ckpt_dir: model_zoo/LSUN-Church/6/ckpt.pth
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.0001
+    beta_end: 0.02
+    num_diffusion_timesteps: 1000
+
+sampling:
+    total_N: 1000
+    batch_size: 64
+    last_only: True
+    fid_stats_dir: model_zoo/LSUN-Church/fid_statistic/statistic.pth # a '.pth' file which containing m and s of the target dataset.
+    fid_total_samples: 50000
+    fid_batch_size: 512
+    cond_class: false
+    classifier_scale: 0.0
+    keep_samples: False
+    model_zoo:
+        load_type: zoo
+        path: model_zoo/LSUN-Church
+        configs: []
+    model_schedule:
+        type: load
+        specify: 
+        load:
+            load_path: 
+
+dataset_generate:
+    data_num: 10
+    image_num: 1000 # 1000 is recommended for faster evaluation. Our paper use 5000 as the default setting
+    dataset_path: model_zoo/LSUN-Church-dataset
+    metric: fid
+    model_schedule:
+        type: multinomial+hierarchical
+        # specify: 
+        # load:
+        #     load_path: 
+        multinomial:
+            prob_vector: [0.16, 0.16, 0.16, 0.16, 0.17, 0.17]
+            ms_length: 60 # only for DPM-Solver sampler
+            set_zero_prob: 0.8
+        hierarchical:
+            alpha: 0.4
+
+pop_eval:
+    metric: fid
+    eval_schedule_num: 10
+    image_num: 5000
+        
+fixed_noise: 
+    enable: true
+    path: /mnt/sharedata/les19/temp_files/fixed_noises/fixed_noise_256.pth

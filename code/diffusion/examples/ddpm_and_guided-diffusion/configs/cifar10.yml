@@ -1,0 +1,98 @@
+data:
+    dataset: "CIFAR10"
+    image_size: 32
+    channels: 3
+    logit_transform: false
+    uniform_dequantization: false
+    gaussian_dequantization: false
+    random_flip: true
+    rescaled: true
+    num_workers: 4
+    num_classes: 10
+
+model:
+    model_type: "ddpm"
+    is_upsampling: false
+    type: "simple"
+    in_channels: 3
+    out_ch: 3
+    ch: 128
+    ch_mult: [1, 2, 2, 2]
+    temb_ch: 512
+    num_res_blocks: 2
+    attn_resolutions: [16, ]
+    attn_num: {16: 1}
+    dropout: 0.1
+    var_type: fixedlarge
+    ema_rate: 0.9999
+    ema: True
+    resamp_with_conv: True
+    ckpt_dir: model_zoo/cifar10/5/ckpt.pth
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.0001
+    beta_end: 0.02
+    num_diffusion_timesteps: 1000
+
+training:
+    batch_size: 128
+    n_epochs: 10000
+    n_iters: 5000000
+    snapshot_freq: 5000
+    validation_freq: 2000
+
+sampling:
+    total_N: 1000
+    batch_size: 1000
+    last_only: True
+    fid_stats_dir: model_zoo/cifar10/fid_statistic/statistic.pth # a '.pth' file which containing m and s of the target dataset.
+    fid_total_samples: 50000
+    fid_batch_size: 512
+    cond_class: false
+    classifier_scale: 0.0
+    keep_samples: False
+    model_zoo:
+        load_type: zoo
+        path: model_zoo/cifar10
+        configs: []
+    model_schedule:
+        type: load
+        specify: 
+        load:
+            load_path: searched_schedules/cifar10/dpm-solver_1400.pth
+
+dataset_generate:
+    data_num: 10
+    image_num: 1000 # 1000 is recommended for faster evaluation. Our paper use 5000 as the default setting
+    dataset_path: dataset/cifar10-dataset
+    metric: fid
+    model_schedule:
+        type: multinomial+hierarchical
+        # specify: 
+        # load:
+        #     load_path: 
+        multinomial:
+            prob_vector: [0.16, 0.16, 0.16, 0.16, 0.17, 0.17]
+            ms_length: 60 # only for DPM-Solver sampler
+            set_zero_prob: 0.8
+        hierarchical:
+            alpha: 0.4
+
+pop_eval:
+    metric: fid
+    eval_schedule_num: 10
+    image_num: 5000
+        
+fixed_noise: 
+    enable: true
+    path: /mnt/sharedata/les19/temp_files/fixed_noises/fixed_noise_32.pth
+
+optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.0002
+    beta1: 0.9
+    amsgrad: false
+    eps: 0.00000001
+    grad_clip: 1.0

@@ -1,0 +1,76 @@
+training:
+  epoch: 1000
+  save_every: 50
+  valid_every: 50
+  batch_size: 512
+  optimizer:
+    type: adam
+    learning_rate: 0.001
+    weight_decay: 0
+    eta_min: 0.000001
+
+testing:
+  batch_size: 512
+
+dataset:
+  path: dataset/cifar10_ddim_dataset.pth
+  train_ratio: 0.5
+
+predictor:
+  sampler_type: ddim # "dpm-solver" or "ddim"
+  timestep_type: logSNR # recommend "logSNR" for dpm-solver and not used for ddim
+  max_timesteps: 1000 # for ddim
+
+  model_embedder: 
+    model_zoo_size: 6
+    embedding_dim: 32
+
+  timestep_encoder:
+    input_temb_dim: 128
+    output_temb_dim: 64
+    shift: False
+
+  ms_encoder:
+    hidden_size: 128
+    num_layers: 1
+    dropout_ratio: 0.0 
+
+  regression_head:
+    out_dims: [200, 200, 200]
+
+  loss:
+    loss_type: ranking
+    ranking:
+      compare_threshold: 0.25
+      max_compare_ratio: 2.0
+      compare_margin: 1.0
+
+  # for DPM-Solver predictor
+  solver_encoder:
+    out_dims: [64, 64]
+    order_emb_dim: 16
+    
+  noise_schedule:
+    name: NoiseScheduleVP # "NoiseScheduleVP" or "NoiseScheduleVP_SD"
+    beta_start: 0.0001 # 0.00085 for Stable-Difusion
+    beta_end: 0.02 # 0.0120 for Stable-Difusion
+    schedule: linear # "linear" for unconditional generation and "discrete" for text-to-image generation to align the settings in our paper. 
+
+search:
+  model_zoo_latency: model_zoo/cifar10/cifar10_latency.pth
+  smaller_score: True # if smaller target metric indicates higher quality, then True; else False
+  max_init_time: 1000
+  max_num_next_generation: 40
+  max_mutate_time_one_iter: 200
+  init_tolerance: 0.9
+  max_candidate_parents: 2
+  max_population_size: 40
+  step_size: 10
+  mutate_prob: 1.0
+  init_correct_prob: 0.1
+  max_length: 100 # This configuration is L in our original paper. See Sec C.2 for default values.
+  epoch: 1000
+  log_every: 20
+
+
+
