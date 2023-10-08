@@ -2,9 +2,9 @@
 
 We provide an example of using multi model to sample with stable diffusion models. Edit the 'model_schedule' in 'code/diffusion/examples/stable-diffusion/configs/stable-diffusion/v1-inference.yaml' and run the following command.
 
-'''
+```
 python code/diffusion/examples/stable-diffusion/scripts/txt2img.py --use_model_schedule
-'''
+```
 
 ----------------------------------
 
