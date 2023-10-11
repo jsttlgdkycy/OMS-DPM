@@ -48,7 +48,7 @@ python ./code/predictor/main_predictor.py --config <CONFIG NAME>
 
 # Acknowledgement
 
-This repository is heavily based on https://github.com/LuChengTHU/dpm-solver/tree/main/examples/ddpm_and_guided-diffusion and https://github.com/ermongroup/ddim. We thank these valuable works.
+This repository is heavily based on https://github.com/LuChengTHU/dpm-solver and https://github.com/ermongroup/ddim. We thank these valuable works.
 
 --------------------
 
