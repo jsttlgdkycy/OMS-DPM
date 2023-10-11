@@ -1,6 +1,6 @@
 # OMS-DPM: Optimizing the Model Schedule for Diffusion Probabilistic Models
 
-The official code for the paper [OMS-DPM: Optimizing the Model Schedule for Diffusion Probabilistic Models](https://arxiv.org/abs/2306.08860) (**ICML 2023**) by Enshu Liu*, Xuefei Ning*, Zinan Lin*, Huazhong Yang, and Yu Wang. OMS-DPM provides a method of using multi-model sampling in the timestep dimension, as well as a search algorithm for optimizing the model schedule.
+The official code for the paper [OMS-DPM: Optimizing the Model Schedule for Diffusion Probabilistic Models](https://arxiv.org/abs/2306.08860) (**ICML 2023**) ([Website](https://sites.google.com/view/oms-dpm)) by Enshu Liu*, Xuefei Ning*, Zinan Lin*, Huazhong Yang, and Yu Wang. OMS-DPM provides a method of using multi-model sampling in the timestep dimension, as well as a search algorithm for optimizing the model schedule.
 
 --------------------
 
@@ -40,9 +40,9 @@ python ./code/diffusion/examples/ddpm_and_guided-diffusion/main.py --config ./co
 
 We provide datasets of model schedule and performance pair [here](https://drive.google.com/drive/folders/1fgJn4ZqWxOJ4Hq16F0NXbTFnfDYdaFl3?usp=drive_link). Edit the 'dataset.path' in configs in './code/predictor/configs' and train a predictor using the following command.
 
-'''
+```
 python ./code/predictor/main_predictor.py --config <CONFIG NAME>
-'''
+```
 
 --------------------
 
@@ -56,10 +56,12 @@ This repository is heavily based on https://github.com/LuChengTHU/dpm-solver/tre
 
 If you find the code useful for your research, please consider citing
 ```bib
-@article{liu2023oms,
-  title={OMS-DPM: Optimizing the Model Schedule for Diffusion Probabilistic Models},
+@InProceedings{liu2023oms,
+  title={{OMS}-{DPM}: Optimizing the Model Schedule for Diffusion Probabilistic Models},
   author={Liu, Enshu and Ning, Xuefei and Lin, Zinan and Yang, Huazhong and Wang, Yu},
-  journal={arXiv preprint arXiv:2306.08860},
-  year={2023}
+  booktitle={Proceedings of the 40th International Conference on Machine Learning},
+  pages={21915--21936},
+  year={2023},
+  organization={PMLR}
 }
 ```
